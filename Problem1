@@ -1,0 +1,54 @@
+'''## Problem1 
+Search a 2D Matrix(https://leetcode.com/problems/search-a-2d-matrix/)
+
+I have provided two solutions 1'st one is taught in class, 2nd is different approach.
+# Start from the top-right corner (or any corner could be chosen), then compare top-right element with target,
+if current element is smaller than target, then move 1 column down, if current element is larger that means we are already in correct row just move left side of the column  '''
+
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        if matrix and matrix[0] == 0:
+            return False
+        
+        m = len(matrix)
+        n = len(matrix[0])
+        
+        l, r = 0, (m*n) - 1
+        while l <= r:
+            mid = (l + r)//2
+            row = mid//n
+            col = mid%n
+
+            if matrix[row][col] == target:
+                return True
+            elif matrix[row][col] < target:
+                l = mid + 1
+            else:
+                r = mid - 1
+            
+        return False
+
+
+
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        if not matrix or not matrix[0]:
+            return False
+        
+        rows = len(matrix)
+        cols = len(matrix[0])
+        
+        # Start from the top-right corner (or any corner could be chosen)
+        row = 0
+        col = cols - 1
+        
+        while row < rows and col >= 0:
+            if matrix[row][col] == target:
+                return True
+            elif matrix[row][col] < target:
+                row += 1  # Move down if the current element is smaller
+            else:
+                col -= 1  # Move left if the current element is larger
+        
+        return False
+
